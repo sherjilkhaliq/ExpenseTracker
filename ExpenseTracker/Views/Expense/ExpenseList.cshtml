@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ExpenseTracker.Models.Expenses>
+
+@{
+    ViewData["Title"] = "ExpenseList";
+}
+
+<h1>Expense List</h1>
+
+<p class="float-right">
+    <a asp-action="Create" class="btn btn-outline-primary">Add New</a>
+</p>
+@using (Html.BeginForm("ExpenseList", "Expense",FormMethod.Post))
+{
+<div>
+    <table class="table">
+        <tr>
+            <td>
+                From Date:
+            </td>
+            <td>
+                    <input name="Todate" type="text" class="datepicker form-control"  />
+            </td>
+            <td>
+                To Date:
+            </td>
+            <td>
+               
+                    <input name="FromDate" type="text" class="datepicker form-control"/>
+            </td>
+            <td>
+                <input type="submit" value="Search" class="btn btn-outline-primary"/>
+            </td>
+        </tr>
+    </table>
+</div>
+}
+<table class="table">
+    <thead>
+        <tr>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.ExpenseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+           
+            <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "Create", new { id=item.ExpenseID,item.ExpenseID,item.ExpenseDate,item.Amount,item.ExpenseCategoroyID,item.CategoryName } , new {@class="btn btn-success"}) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ExpenseID },new { @class="btn btn-danger",onclick="return confirm('Do you want this record to remove?')"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts {
+  
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker();
+        });
+    </script>
+}
+

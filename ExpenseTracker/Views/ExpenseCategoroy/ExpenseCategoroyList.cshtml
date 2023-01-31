@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ExpenseTracker.Models.ExpenseCategoroies>
+
+@{
+    ViewData["Title"] = "ExpenseCategoroyList";
+}
+
+<h1>Expense Categoroy List</h1>
+
+<p class="float-right">
+    <a asp-action="Create" class="btn btn-outline-primary">Add New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "Create", new { id=item.ExpenseCategoryID,item.ExpenseCategoryID,item.CategoryName },new { @class="btn btn-success"} ) |
+                    @Html.ActionLink("Delete", "DeleteExpense", new { id=item.ExpenseCategoryID },new { @class="btn btn-danger",onclick="return confirm('Do you want this record to remove?')"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
